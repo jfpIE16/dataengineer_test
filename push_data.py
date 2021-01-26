@@ -22,6 +22,7 @@ def push_data_firebase(filepath):
     cdir = os.path.dirname(__file__)
     file_res = os.path.join(cdir, filepath)
     data = pd.read_csv(file_res)
+    data['documento'] = data['documento'].astype(str)
     data_json = json.loads(data.to_json(orient='records'))
 
     for datum in data_json:
