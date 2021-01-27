@@ -11,8 +11,6 @@ db = firestore.Client()
 
 @app.route('/list', methods=['GET'])
 def read():
-    """
-    """
     try:
         # Check if ID was passed to URL query
         todo_id = request.args.get('id')
