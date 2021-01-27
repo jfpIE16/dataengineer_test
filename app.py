@@ -4,10 +4,14 @@
 import os
 from flask import Flask, request, jsonify
 from google.cloud import firestore
+from flask_cors import CORS, cross_origin
 
 # Initialize Flask app
 app = Flask(__name__)
+cors = CORS(app)
 db = firestore.Client()
+
+
 
 @app.route('/list', methods=['GET'])
 def read():
