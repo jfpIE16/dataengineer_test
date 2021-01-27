@@ -1,41 +1,45 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
         $(document).ready(function(){
             $("button").click(function(){
-                fetch('https://jfpbam-2qgyf2q5xq-uc.a.run.app/list',{
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                let id_client = document.getElementById("client_id").value;
+                $.ajax({
+                    type: 'GET',
+                    url: 'https://jfpbam-2qgyf2q5xq-uc.a.run.app/list',
+                    dataType: 'json',
                     data: {
-                        id : '-8726867954306361463'
+                        id: id_client
+                    },
+                    success: function(data){
+                        document.getElementById("json").textContent = JSON.stringify(data, null, 4);
+                    },
+                    error: function(xhr){
+                        alert("Error", xhr)
                     }
                 })
-                .then(
-                    function(response) {
-                    if (response.status !== 200) {
-                        alert('Looks like there was a problem. Status Code: ' +
-                        response.status);
-                        return;
-                    }
-
-                    // Examine the text in the response
-                    response.json().then(function(data) {
-                        alert(data);
-                    });
-                    }
-                )
-                .catch(function(err) {
-                    alert('Fetch Error :-S', err);
-                });
             });
         });
         </script>
     </head>
 <body>
-    <button>GET Test!</button>
+    <h1>
+        Prueba BAM
+    </h1>
+    <div class="input-group input-group-lg mt-2">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-lg">Client ID</span>
+        </div>
+        <input type="text" class="form-control" aria-describedby="inputGroup-sizing-lg" id="client_id">
+    </div>
+    <button type="button" class="btn btn-primary btn-lg btn-block mt-2">Obtenga transacciones de clientes</button>
+    <h4 class="mt-2">Resultado de consulta:</h4>
+    <pre id="json" class="mt-2"></pre>
 </body>
 </html> 
