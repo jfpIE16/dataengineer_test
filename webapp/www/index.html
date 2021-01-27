@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+        $(document).ready(function(){
+            $("button").click(function(){
+                fetch('https://jfpbam-2qgyf2q5xq-uc.a.run.app/list',{
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: {
+                        id : '-8726867954306361463'
+                    }
+                })
+                .then(
+                    function(response) {
+                    if (response.status !== 200) {
+                        alert('Looks like there was a problem. Status Code: ' +
+                        response.status);
+                        return;
+                    }
+
+                    // Examine the text in the response
+                    response.json().then(function(data) {
+                        alert(data);
+                    });
+                    }
+                )
+                .catch(function(err) {
+                    alert('Fetch Error :-S', err);
+                });
+            });
+        });
+        </script>
+    </head>
+<body>
+    <button>GET Test!</button>
+</body>
+</html> 
